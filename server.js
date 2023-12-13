@@ -48,7 +48,7 @@ mongoose
     app.use("/api/auth", authRoutes);
     app.use("/api/blogs", blogRoutes);
     app.use("/api/categories", categoryRoutes);
-    app.use("/api/products", projectRoutes);
+    app.use("/api/projects", projectRoutes);
     app.use("/api/shorts", shortsRoutes);
     app.use("/api/vacancies", vacancyRoutes);
 
