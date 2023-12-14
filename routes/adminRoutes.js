@@ -28,7 +28,7 @@ router.post("/login", (req, res) => {
     req.session.isAuthenticated = true;
     return res.redirect("/dashboard");
   } else {
-    return res.render("login", { error: "Invalid username or password" });
+    return res.render("login", { error: "Неправильное имя пользователя или пароль" });
   }
 });
 
