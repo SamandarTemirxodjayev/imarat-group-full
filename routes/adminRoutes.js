@@ -28,7 +28,9 @@ router.post("/login", (req, res) => {
     req.session.isAuthenticated = true;
     return res.redirect("/dashboard");
   } else {
-    return res.render("login", { error: "Неправильное имя пользователя или пароль" });
+    return res.render("login", {
+      error: "Неправильное имя пользователя или пароль",
+    });
   }
 });
 
@@ -83,13 +85,14 @@ router.post(
         return res.status(400).send("No file attached to the request");
       }
       const photoPath = req.file.path;
-      const { newTitle, newDescription } = req.body;
-      if (!newTitle || !newDescription) {
-        return res.status(400).send("Title and description are required");
+      const { newTitle, newDescription, newHashtag } = req.body;
+      if (!newTitle || !newDescription || !newHashtag) {
+        return res.status(400).send("All inputs are required");
       }
       const newBlog = new Blog({
         title: newTitle,
         description: newDescription,
+        hashtag: newHashtag,
         photo: photoPath,
       });
       await newBlog.save();
@@ -109,7 +112,7 @@ router.post(
   async (req, res) => {
     try {
       const blogId = req.params.blogId;
-      const { updatedTitle, updatedDescription } = req.body;
+      const { updatedTitle, updatedDescription, updatedHashtag } = req.body;
       const updatedPhoto = req.file ? req.file.path : "";
       const blog = await Blog.findById(blogId);
       if (!blog) {
@@ -117,6 +120,7 @@ router.post(
       }
       blog.title = updatedTitle;
       blog.description = updatedDescription;
+      blog.hashtag = updatedHashtag;
       if (updatedPhoto) {
         blog.photo = updatedPhoto;
       }
@@ -214,9 +218,11 @@ router.get(
 router.get("/vacancies", isAuthenticated, async (req, res) => {
   try {
     const vacancies = await Vacancy.find();
-    return res.render("adminVacancies", { vacancies });
+    const categories = await Category.find();
+    res.render("adminVacancies", { vacancies, categories });
   } catch (error) {
-    return res.status(500).render("error", { error: "Internal Server Error" });
+    console.error(error);
+    res.status(500).render("error", { error: "Internal Server Error" });
   }
 });
 
@@ -235,7 +241,7 @@ router.post("/vacancies/create", isAuthenticated, async (req, res) => {
     await newVacancy.save();
     return res.redirect("/vacancies");
   } catch (error) {
-    return res.status(500).render("error", { error: "Internal Server Error" });
+    return res.status(500).json({ error });
   }
 });
 
@@ -251,6 +257,14 @@ router.post(
         updatedDescription,
         updatedPrice,
       } = req.body;
+      if (
+        !updatedCategory ||
+        !updatedTitle ||
+        !updatedDescription ||
+        !updatedPrice
+      ) {
+        return res.status(400).send("All fields are required");
+      }
       const vacancy = await Vacancy.findById(vacancyId);
       if (!vacancy) {
         return res.status(404).send("Vacancy not found");
@@ -262,6 +276,7 @@ router.post(
       await vacancy.save();
       return res.redirect("/vacancies");
     } catch (error) {
+      console.error(error);
       return res
         .status(500)
         .render("error", { error: "Internal Server Error" });
