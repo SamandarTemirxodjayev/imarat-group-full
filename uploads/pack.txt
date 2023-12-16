@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "build": "npm install"
+    "build": "webpack --config webpack.config.js --mode production",
+    "prod": "node ./dist/bundle.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
