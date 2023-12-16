@@ -86,7 +86,7 @@
                   type="button"
                   class="btn btn-danger"
                   style="font-weight: bold"
-                  onclick="deleteBlog('<%= category._id %>')"
+                  onclick="deleteCategory('<%= category._id %>')"
                 >
                   Удалить
                 </button>
@@ -163,7 +163,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-      function deleteBlog(categoryId) {
+      function deleteCategory(categoryId) {
         Swal.fire({
           title: "Вы уверены?",
           text: "Вы действительно хотите удалить этот категория?",
