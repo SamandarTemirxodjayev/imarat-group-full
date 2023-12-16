@@ -1,0 +1,6 @@
+# render.yaml
+
+services:
+  - name: imarat
+    type: web
+    buildCommand: npm install -D webpack-cli --yes
