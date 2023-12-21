@@ -19,10 +19,10 @@ const isAuthenticated = (req, res, next) => {
   if (req.session.isAuthenticated) {
     return next();
   }
-  return res.redirect("/login");
+  return res.redirect("/");
 };
 
-router.post("/login", (req, res) => {
+router.post("/", (req, res) => {
   const { username, password } = req.body;
   if (authenticateUser(username, password)) {
     req.session.isAuthenticated = true;
@@ -34,7 +34,7 @@ router.post("/login", (req, res) => {
   }
 });
 
-router.get("/login", (req, res) => {
+router.get("/", (req, res) => {
   return res.render("login", { error: null });
 });
 
@@ -43,13 +43,13 @@ router.get("/logout", isAuthenticated, (req, res) => {
     if (err) {
       console.error("Error destroying session:", err);
     }
-    return res.redirect("/login");
+    return res.redirect("/");
   });
 });
 
 router.get("/dashboard", (req, res) => {
   if (!req.session.isAuthenticated) {
-    return res.redirect("/login");
+    return res.redirect("/");
   }
   return res.render("adminDashboard");
 });
