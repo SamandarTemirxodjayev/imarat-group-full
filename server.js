@@ -10,9 +10,6 @@ const categoryRoutes = require("./routes/categoryRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const shortsRoutes = require("./routes/shortsRoutes");
 const vacancyRoutes = require("./routes/vacancyRoutes");
-const userRoutes = require("./routes/userRoutes");
-const cameraRoutes = require("./routes/cameraRoutes");
-const houseRoutes = require("./routes/houseRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const bodyParser = require("body-parser");
 const path = require("path");
@@ -23,7 +20,7 @@ app.use(cors());
 app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-// app.set("views", path.join(__dirname, "dist", "views"));
+app.set("views", path.join(__dirname, "dist", "views"));
 app.use(express.static(path.join(__dirname, "dist")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
@@ -54,9 +51,6 @@ mongoose
     app.use("/api/projects", projectRoutes);
     app.use("/api/shorts", shortsRoutes);
     app.use("/api/vacancies", vacancyRoutes);
-    app.use("/api/users", userRoutes);
-    app.use("/api/cameras", cameraRoutes);
-    app.use("/api/houses", houseRoutes);
 
     // Start the server
     const PORT = process.env.PORT || 3002;
