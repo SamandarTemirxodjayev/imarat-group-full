@@ -7,10 +7,7 @@ exports.getAllHouses = async (req, res) => {
       houses.map((house) => ({
         _id: house._id,
         clientUsername: house.clientUsername,
-        clientCamera1: house.clientCamera1,
-        clientCamera2: house.clientCamera2,
-        clientCamera3: house.clientCamera3,
-        clientCamera4: house.clientCamera4,
+        clientCamera: house.clientCamera,
       }))
     );
   } catch (error) {
@@ -27,10 +24,7 @@ exports.getHouseById = async (req, res) => {
     return res.json({
       _id: house._id,
       clientUsername: house.clientUsername,
-      clientCamera1: house.clientCamera1,
-      clientCamera2: house.clientCamera2,
-      clientCamera3: house.clientCamera3,
-      clientCamera4: house.clientCamera4,
+      clientCamera: house.clientCamera,
     });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
@@ -41,10 +35,7 @@ exports.createHouse = async (req, res) => {
   try {
     const newHouse = new House({
       clientUsername: req.body.clientUsername,
-      clientCamera1: req.body.clientCamera1,
-      clientCamera2: req.body.clientCamera2,
-      clientCamera3: req.body.clientCamera3,
-      clientCamera4: req.body.clientCamera4,
+      clientCamera: req.body.clientCamera,
     });
     const savedHouse = await newHouse.save();
     return res.json(savedHouse);
@@ -59,10 +50,7 @@ exports.updateHouse = async (req, res) => {
       req.params.id,
       {
         clientUsername: req.body.clientUsername,
-        clientCamera1: req.body.clientCamera1,
-        clientCamera2: req.body.clientCamera2,
-        clientCamera3: req.body.clientCamera3,
-        clientCamera4: req.body.clientCamera4,
+        clientCamera: req.body.clientCamera,
       },
       { new: true }
     );
@@ -72,10 +60,7 @@ exports.updateHouse = async (req, res) => {
     return res.json({
       _id: updatedHouse._id,
       clientUsername: updatedHouse.clientUsername,
-      clientCamera1: updatedHouse.clientCamera1,
-      clientCamera2: updatedHouse.clientCamera2,
-      clientCamera3: updatedHouse.clientCamera3,
-      clientCamera4: updatedHouse.clientCamera4,
+      clientCamera: updatedHouse.clientCamera,
     });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
