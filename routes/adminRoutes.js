@@ -7,6 +7,7 @@ const Category = require("../models/Category");
 const Vacancy = require("../models/Vacancy");
 const Project = require("../models/Project");
 const Shorts = require("../models/Shorts");
+const User = require("../models/User");
 const uuid = require("uuid");
 
 const authenticateUser = (username, password) => {
@@ -74,6 +75,19 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
+
+router.get("/blogs/:blogId", isAuthenticated, async (req, res) => {
+  try {
+    const blogId = req.params.blogId;
+    const blog = await Blog.findById(blogId);
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+    return res.json(blog);
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 router.post(
   "/blogs/create",
@@ -157,6 +171,19 @@ router.get("/categories", isAuthenticated, async (req, res) => {
   }
 });
 
+router.get("/categories/:categoryId", isAuthenticated, async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+    const category = await Category.findById(categoryId);
+    if (!category) {
+      return res.status(404).json({ message: "Category not found" });
+    }
+    return res.json(category);
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 router.post("/categories/create", isAuthenticated, async (req, res) => {
   try {
     const { newCategory } = req.body;
@@ -223,6 +250,19 @@ router.get("/vacancies", isAuthenticated, async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).render("error", { error: "Internal Server Error" });
+  }
+});
+
+router.get("/vacancies/:vacancyId", isAuthenticated, async (req, res) => {
+  try {
+    const vacancyId = req.params.vacancyId;
+    const vacancy = await Vacancy.findById(vacancyId);
+    if (!vacancy) {
+      return res.status(404).json({ message: "Vacancy not found" });
+    }
+    return res.json(vacancy);
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
   }
 });
 
@@ -313,6 +353,19 @@ router.get("/projects", isAuthenticated, async (req, res) => {
   }
 });
 
+router.get("/projects/:projectId", isAuthenticated, async (req, res) => {
+  try {
+    const projectId = req.params.projectId;
+    const project = await Project.findById(projectId);
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+    return res.json(project);
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 router.post(
   "/projects/create",
   upload.single("newPhoto"),
@@ -391,6 +444,19 @@ router.get("/shorts", isAuthenticated, async (req, res) => {
   }
 });
 
+router.get("/shorts/:shortId", isAuthenticated, async (req, res) => {
+  try {
+    const shortId = req.params.shortId;
+    const short = await Shorts.findById(shortId);
+    if (!short) {
+      return res.status(404).json({ message: "Short not found" });
+    }
+    return res.json(short);
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 router.post("/shorts/create", isAuthenticated, async (req, res) => {
   try {
     const { newUrl } = req.body;
@@ -431,6 +497,78 @@ router.get("/shorts/delete/:shortId", isAuthenticated, async (req, res) => {
       return res.status(404).send("Short URL not found");
     }
     return res.redirect("/shorts");
+  } catch (error) {
+    return res.status(500).send("Internal Server Error");
+  }
+});
+
+// Users route codes
+router.get("/users", isAuthenticated, async (req, res) => {
+  try {
+    const users = await User.find();
+    return res.render("adminUsers", { users });
+  } catch (error) {
+    return res.status(500).send("Internal Server Error");
+  }
+});
+
+router.get("/users/:userId", isAuthenticated, async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    return res.json(user);
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+router.post("/users/create", isAuthenticated, async (req, res) => {
+  try {
+    const { newFullName, newUsername, newPassword } = req.body;
+    if (!newFullName || !newUsername || !newPassword) {
+      return res.status(400).send("URL is required");
+    }
+    const newUser = new User({
+      fullName: newFullName,
+      username: newUsername,
+      password: newPassword,
+    });
+    await newUser.save();
+    return res.redirect("/users");
+  } catch (error) {
+    return res.status(500).send("Internal Server Error");
+  }
+});
+
+router.post("/users/update/:userId", isAuthenticated, async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { updatedFullName, updatedUsername, updatedPassword } = req.body;
+    const user = await Shorts.findById(userId);
+    if (!user) {
+      return res.status(404).send("Short URL not found");
+    }
+    user.fullName = updatedFullName;
+    user.username = updatedUsername;
+    user.password = updatedPassword;
+    await user.save();
+    return res.redirect("/users");
+  } catch (error) {
+    return res.status(500).send("Internal Server Error");
+  }
+});
+
+router.get("/users/delete/:userId", isAuthenticated, async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const deletedUser = await User.findByIdAndDelete(userId);
+    if (!deletedUser) {
+      return res.status(404).send("User URL not found");
+    }
+    return res.redirect("/users");
   } catch (error) {
     return res.status(500).send("Internal Server Error");
   }
