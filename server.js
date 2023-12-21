@@ -10,6 +10,7 @@ const categoryRoutes = require("./routes/categoryRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const shortsRoutes = require("./routes/shortsRoutes");
 const vacancyRoutes = require("./routes/vacancyRoutes");
+const userRoutes = require("./routes/userRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const bodyParser = require("body-parser");
 const path = require("path");
@@ -51,6 +52,7 @@ mongoose
     app.use("/api/projects", projectRoutes);
     app.use("/api/shorts", shortsRoutes);
     app.use("/api/vacancies", vacancyRoutes);
+    app.use("/api/users", userRoutes);
 
     // Start the server
     const PORT = process.env.PORT || 3002;
