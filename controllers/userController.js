@@ -6,8 +6,8 @@ exports.getAllUsers = async (req, res) => {
     return res.json(
       users.map((user) => ({
         _id: user._id,
-        first_name: user.first_name,
-        last_name: user.last_name,
+        firstName: user.firstName,
+        lastName: user.lastName,
         username: user.username,
         password: user.password,
       }))
@@ -25,8 +25,8 @@ exports.getUserById = async (req, res) => {
     }
     return res.json({
       _id: user._id,
-      first_name: user.first_name,
-      last_name: user.last_name,
+      firstName: user.firstName,
+      lastName: user.lastName,
       username: user.username,
       password: user.password,
     });
@@ -38,8 +38,8 @@ exports.getUserById = async (req, res) => {
 exports.createUser = async (req, res) => {
   try {
     const newUser = new User({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       username: req.body.username,
       password: req.body.password,
     });
@@ -55,8 +55,8 @@ exports.updateUser = async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
       {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         username: req.body.username,
         password: req.body.password,
       },
@@ -67,8 +67,8 @@ exports.updateUser = async (req, res) => {
     }
     return res.json({
       _id: updatedUser._id,
-      first_name: updatedUser.first_name,
-      last_name: updatedUser.last_name,
+      firstName: updatedUser.firstName,
+      lastName: updatedUser.lastName,
       username: updatedUser.username,
       password: updatedUser.password,
     });

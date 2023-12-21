@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
 const houseSchema = new mongoose.Schema({
-  client_username: {
+  clientUsername: {
     type: String,
   },
-  client_camera_1: {
+  clientCamera1: {
     type: String,
   },
-  client_camera_2: {
+  clientCamera2: {
     type: String,
   },
-  client_camera_3: {
+  clientCamera3: {
     type: String,
   },
-  client_camera_4: {
+  clientCamera4: {
     type: String,
   },
 });

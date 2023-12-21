@@ -6,11 +6,11 @@ exports.getAllHouses = async (req, res) => {
     return res.json(
       houses.map((house) => ({
         _id: house._id,
-        client_username: house.client_username,
-        client_camera_1: house.client_camera_1,
-        client_camera_2: house.client_camera_2,
-        client_camera_3: house.client_camera_3,
-        client_camera_4: house.client_camera_4,
+        clientUsername: house.clientUsername,
+        clientCamera1: house.clientCamera1,
+        clientCamera2: house.clientCamera2,
+        clientCamera3: house.clientCamera3,
+        clientCamera4: house.clientCamera4,
       }))
     );
   } catch (error) {
@@ -26,11 +26,11 @@ exports.getHouseById = async (req, res) => {
     }
     return res.json({
       _id: house._id,
-      client_username: house.client_username,
-      client_camera_1: house.client_camera_1,
-      client_camera_2: house.client_camera_2,
-      client_camera_3: house.client_camera_3,
-      client_camera_4: house.client_camera_4,
+      clientUsername: house.clientUsername,
+      clientCamera1: house.clientCamera1,
+      clientCamera2: house.clientCamera2,
+      clientCamera3: house.clientCamera3,
+      clientCamera4: house.clientCamera4,
     });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
@@ -40,11 +40,11 @@ exports.getHouseById = async (req, res) => {
 exports.createHouse = async (req, res) => {
   try {
     const newHouse = new House({
-      client_username: req.body.client_username,
-      client_camera_1: req.body.client_camera_1,
-      client_camera_2: req.body.client_camera_2,
-      client_camera_3: req.body.client_camera_3,
-      client_camera_4: req.body.client_camera_4,
+      clientUsername: req.body.clientUsername,
+      clientCamera1: req.body.clientCamera1,
+      clientCamera2: req.body.clientCamera2,
+      clientCamera3: req.body.clientCamera3,
+      clientCamera4: req.body.clientCamera4,
     });
     const savedHouse = await newHouse.save();
     return res.json(savedHouse);
@@ -58,11 +58,11 @@ exports.updateHouse = async (req, res) => {
     const updatedHouse = await House.findByIdAndUpdate(
       req.params.id,
       {
-        client_username: req.body.client_username,
-        client_camera_1: req.body.client_camera_1,
-        client_camera_2: req.body.client_camera_2,
-        client_camera_3: req.body.client_camera_3,
-        client_camera_4: req.body.client_camera_4,
+        clientUsername: req.body.clientUsername,
+        clientCamera1: req.body.clientCamera1,
+        clientCamera2: req.body.clientCamera2,
+        clientCamera3: req.body.clientCamera3,
+        clientCamera4: req.body.clientCamera4,
       },
       { new: true }
     );
@@ -71,11 +71,11 @@ exports.updateHouse = async (req, res) => {
     }
     return res.json({
       _id: updatedHouse._id,
-      client_username: updatedHouse.client_username,
-      client_camera_1: updatedHouse.client_camera_1,
-      client_camera_2: updatedHouse.client_camera_2,
-      client_camera_3: updatedHouse.client_camera_3,
-      client_camera_4: updatedHouse.client_camera_4,
+      clientUsername: updatedHouse.clientUsername,
+      clientCamera1: updatedHouse.clientCamera1,
+      clientCamera2: updatedHouse.clientCamera2,
+      clientCamera3: updatedHouse.clientCamera3,
+      clientCamera4: updatedHouse.clientCamera4,
     });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
