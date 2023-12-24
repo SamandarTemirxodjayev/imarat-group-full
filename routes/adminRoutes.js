@@ -527,18 +527,22 @@ router.get("/users/:userId", isAuthenticated, async (req, res) => {
 
 router.post("/users/create", isAuthenticated, async (req, res) => {
   try {
-    const { newFullName, newUsername, newPassword } = req.body;
-    if (!newFullName || !newUsername || !newPassword) {
-      return res.status(400).send("URL is required");
+    const { newHouse, newHouseDesc, newFirstName, newLastName, newUsername, newPassword } = req.body;
+    if (!newHouse || !newHouseDesc || !newFirstName || !newLastName || !newUsername || !newPassword) {
+      return res.status(400).send("User details are required");
     }
     const newUser = new User({
-      fullName: newFullName,
+      house: newHouse,
+      houseDesc: newHouseDesc,
+      firstName: newFirstName,
+      lastName: newLastName,
       username: newUsername,
       password: newPassword,
     });
     await newUser.save();
     return res.redirect("/users");
   } catch (error) {
+    console.error(error);
     return res.status(500).send("Internal Server Error");
   }
 });
@@ -546,12 +550,15 @@ router.post("/users/create", isAuthenticated, async (req, res) => {
 router.post("/users/update/:userId", isAuthenticated, async (req, res) => {
   try {
     const userId = req.params.userId;
-    const { updatedFullName, updatedUsername, updatedPassword } = req.body;
-    const user = await Shorts.findById(userId);
+    const { updatedHouse, updatedHouseDesc, updatedFirstName, updatedLastName, updatedUsername, updatedPassword } = req.body;
+    const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).send("Short URL not found");
+      return res.status(404).send("User not found");
     }
-    user.fullName = updatedFullName;
+    user.house = updatedHouse;
+    user.houseDesc = updatedHouseDesc;
+    user.firstName = updatedFirstName;
+    user.lastName = updatedLastName;
     user.username = updatedUsername;
     user.password = updatedPassword;
     await user.save();
@@ -566,7 +573,7 @@ router.get("/users/delete/:userId", isAuthenticated, async (req, res) => {
     const userId = req.params.userId;
     const deletedUser = await User.findByIdAndDelete(userId);
     if (!deletedUser) {
-      return res.status(404).send("User URL not found");
+      return res.status(404).send("User not found");
     }
     return res.redirect("/users");
   } catch (error) {

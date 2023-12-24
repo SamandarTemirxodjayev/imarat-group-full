@@ -3,9 +3,12 @@ const User = require("../models/User");
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
-    const usersWithoutPassword = users.map(user => ({
+    const usersWithoutPassword = users.map((user) => ({
       _id: user._id,
-      fullName: user.fullName,
+      house: user.house,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      houseDesc: user.houseDesc,
       username: user.username,
     }));
     return res.json(usersWithoutPassword);
@@ -22,7 +25,10 @@ exports.getUserById = async (req, res) => {
     }
     return res.json({
       _id: user._id,
-      fullName: user.fullName,
+      house: user.house,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      houseDesc: user.houseDesc,
       username: user.username,
     });
   } catch (error) {
@@ -33,15 +39,21 @@ exports.getUserById = async (req, res) => {
 exports.createUser = async (req, res) => {
   try {
     const newUser = new User({
-      fullName: req.body.fullName,
+      house: req.body.house,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      houseDesc: req.body.houseDesc,
       username: req.body.username,
       password: req.body.password,
     });
     const savedUser = await newUser.save();
     const userWithoutPassword = {
       _id: savedUser._id,
-      fullName: savedUser.fullName,
-      username: savedUser.username,
+      house: req.body.house,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      houseDesc: req.body.houseDesc,
+      username: req.body.username,
     };
     return res.json(userWithoutPassword);
   } catch (error) {
@@ -54,7 +66,10 @@ exports.updateUser = async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
       {
-        fullName: req.body.fullName,
+        house: req.body.house,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        houseDesc: req.body.houseDesc,
         username: req.body.username,
         password: req.body.password,
       },
@@ -65,7 +80,10 @@ exports.updateUser = async (req, res) => {
     }
     const userWithoutPassword = {
       _id: updatedUser._id,
-      fullName: updatedUser.fullName,
+      firstName: updatedUser.firstName,
+      lastName: updatedUser.lastName,
+      house: updatedUser.house,
+      houseDesc: updatedUser.houseDesc,
       username: updatedUser.username,
     };
     return res.json(userWithoutPassword);

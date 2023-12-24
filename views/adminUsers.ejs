@@ -1,1 +1,175 @@
-<h3>users</h3>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Пользователи</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+  <link rel="icon" href="https://index-eosin.vercel.app/Imarat%20Group.svg" type="image/icon type">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#" style="font-weight: bold">Управление пользователи</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard" style="color: red; font-weight: bold; font-size: 20px">Назад</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <main style="margin-top: 20px">
+      <form class="row g-3" action="/users/create" method="post">
+        <div class="col-md-6">
+          <label for="newFirstName" class="form-label" style="font-weight: bold">newFirstName</label>
+          <input type="text" class="form-control" id="newFirstName" name="newFirstName">
+        </div>
+        <div class="col-md-6">
+          <label for="newLastName" class="form-label" style="font-weight: bold">newLastName</label>
+          <input type="text" class="form-control" id="newLastName" name="newLastName">
+        </div>
+        <div class="col-md-6">
+          <label for="newUsername" class="form-label" style="font-weight: bold">newUsername</label>
+          <input type="text" class="form-control" id="newUsername" name="newUsername">
+        </div>
+        <div class="col-md-6">
+          <label for="newPassword" class="form-label" style="font-weight: bold">newPassword</label>
+          <input type="password" class="form-control" id="newPassword" name="newPassword">
+        </div>
+        <div class="col-md-6">
+          <label for="newHouse" class="form-label" style="font-weight: bold">newHouse</label>
+          <input type="text" class="form-control" id="newHouse" name="newHouse">
+        </div>
+        <div class="col-md-6">
+          <label for="newHouseDesc" class="form-label" style="font-weight: bold">newHouseDesc</label>
+          <textarea class="form-control" aria-label="With textarea" id="newHouseDesc" name="newHouseDesc"></textarea>
+        </div>
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <button type="submit" class="btn btn-primary" style="font-weight: bold">
+            Создать пользователя
+          </button>
+        </div>
+      </form>
+      <br>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <% users.forEach(user=> { %>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= user.house %>
+                </h5>
+                <h5 class="card-title">
+                  <%= user.houseDesc %>
+                </h5>
+                <h5 class="card-title">
+                  <%= user.firstName %>
+                </h5>
+                <h5 class="card-title">
+                  <%= user.lastName %>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">
+                  <%= user.username %>
+                </h6>
+                <p class="card-text">
+                  <%= user.password %>
+                </p>
+                <button type="button" class="btn btn-primary" style="font-weight: bold" data-bs-toggle="modal"
+                  data-bs-target="#editModal<%= user._id %>">
+                  Редактировать
+                </button>
+                <button type="button" class="btn btn-danger" style="font-weight: bold"
+                  onclick="deleteUser('<%= user._id %>')">
+                  Удалить
+                </button>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+      </div>
+      <br />
+      <!-- Edit Modal -->
+      <% users.forEach(user=> { %>
+        <div class="modal fade" id="editModal<%= user._id %>" tabindex="-1"
+          aria-labelledby="editModalLabel<%= user._id %>" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-category" id="editModalLabel<%= user._id %>" style="font-weight: bold">
+                  Редактировать категория
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div style="padding: 2%;">
+                <form class="row g-3" action="/users/update/<%= user._id %>" method="post">
+                  <div class="col-md-6">
+                    <label for="updatedFirstName" class="form-label" style="font-weight: bold">updatedFirstName</label>
+                    <input type="text" class="form-control" id="updatedFirstName" name="updatedFirstName" value="<%= user.firstName %>">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="updatedLastName" class="form-label" style="font-weight: bold">updatedLastName</label>
+                    <input type="text" class="form-control" id="updatedLastName" name="updatedLastName" value="<%= user.lastName %>">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="updatedUsername" class="form-label" style="font-weight: bold">updatedUsername</label>
+                    <input type="text" class="form-control" id="updatedUsername" name="updatedUsername" value="<%= user.username %>">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="updatedPassword" class="form-label" style="font-weight: bold">updatedPassword</label>
+                    <input type="text" class="form-control" id="updatedPassword" name="updatedPassword" value="<%= user.password %>">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="updatedHouse" class="form-label" style="font-weight: bold">updatedHouse</label>
+                    <input type="text" class="form-control" id="updatedHouse" name="updatedHouse" value="<%= user.house %>">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="updatedHouseDesc" class="form-label" style="font-weight: bold">updatedHouseDesc</label>
+                    <textarea class="form-control" aria-label="With textarea" id="updatedHouseDesc" name="updatedHouseDesc"><%= user.houseDesc %></textarea>
+                  </div>
+                  <div class="d-grid gap-2 col-6 mx-auto">
+                    <button type="submit" class="btn btn-primary" style="font-weight: bold">
+                      Сохранить изменения
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    function deleteUser(userId) {
+      Swal.fire({
+        title: "Вы уверены?",
+        text: "Вы действительно хотите удалить этот пользователь?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Да, удалить!",
+        cancelButtonText: "Отмена",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = `/users/delete/${userId}`;
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>
