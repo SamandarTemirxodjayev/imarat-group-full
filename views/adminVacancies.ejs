@@ -32,7 +32,7 @@
       <form action="/vacancies/create" method="post" class="mb-4">
         <div class="mb-3">
           <label for="newTitle" class="form-label" style="font-weight: bold">Заголовок:</label>
-          <input type="text" class="form-control" id="newTitle" name="newTitle" required />
+          <input type="text" class="form-control" id="newTitle" name="newTitle" required placeholder="Заголовок"/>
         </div>
         <div class="mb-3">
           <label for="newCategory" class="form-label" style="font-weight: bold">Категория:</label>
@@ -50,11 +50,11 @@
         </div>
         <div class="mb-3">
           <label for="newPrice" class="form-label" style="font-weight: bold">Цена:</label>
-          <input type="text" class="form-control" id="newPrice" name="newPrice" required />
+          <input type="text" class="form-control" id="newPrice" name="newPrice" required placeholder="Цена"/>
         </div>
         <div class="mb-3">
           <label for="newDescription" class="form-label" style="font-weight: bold">Описание:</label>
-          <textarea class="form-control" id="newDescription" name="newDescription" required></textarea>
+          <textarea class="form-control" id="newDescription" name="newDescription" required placeholder="Описание"></textarea>
         </div>
         <button type="submit" class="btn btn-primary" style="font-weight: bold">
           Создать вакансию

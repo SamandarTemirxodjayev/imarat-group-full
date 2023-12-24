@@ -32,19 +32,19 @@
       <form action="/blogs/create" method="post" enctype="multipart/form-data" class="mb-4">
         <div class="mb-3">
           <label for="newTitle" class="form-label" style="font-weight: bold">Заголовок:</label>
-          <input type="text" class="form-control" id="newTitle" name="newTitle" required />
+          <input type="text" class="form-control" id="newTitle" name="newTitle" required placeholder="Заголовок"/>
         </div>
         <div class="mb-3">
           <label for="newHashtag" class="form-label" style="font-weight: bold">Хэштег:</label>
-          <input type="text" class="form-control" id="newHashtag" name="newHashtag" required />
+          <input type="text" class="form-control" id="newHashtag" name="newHashtag" required placeholder="Хэштег"/>
         </div>
         <div class="mb-3">
           <label for="newDescription" class="form-label" style="font-weight: bold">Описание:</label>
-          <textarea class="form-control" id="newDescription" name="newDescription" required></textarea>
+          <textarea class="form-control" id="newDescription" name="newDescription" required placeholder="Описание"></textarea>
         </div>
         <div class="mb-3">
           <label for="newPhoto" class="form-label" style="font-weight: bold">Фото:</label>
-          <input type="file" class="form-control" id="newPhoto" name="newPhoto" required />
+          <input type="file" class="form-control" id="newPhoto" name="newPhoto" required placeholder="Фото"/>
         </div>
         <button type="submit" class="btn btn-primary" style="font-weight: bold">
           Создать блог
