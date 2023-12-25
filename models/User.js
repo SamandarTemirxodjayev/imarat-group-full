@@ -19,6 +19,18 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
+  cameraOne: {
+    type: String,
+  },
+  cameraTwo: {
+    type: String,
+  },
+  cameraThree: {
+    type: String,
+  },
+  cameraFour: {
+    type: String,
+  },
 });
 const User = mongoose.model("User", userSchema);
 module.exports = User;

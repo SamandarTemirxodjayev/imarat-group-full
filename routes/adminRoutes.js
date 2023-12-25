@@ -527,8 +527,30 @@ router.get("/users/:userId", isAuthenticated, async (req, res) => {
 
 router.post("/users/create", isAuthenticated, async (req, res) => {
   try {
-    const { newHouse, newHouseDesc, newFirstName, newLastName, newUsername, newPassword } = req.body;
-    if (!newHouse || !newHouseDesc || !newFirstName || !newLastName || !newUsername || !newPassword) {
+    const {
+      newHouse,
+      newHouseDesc,
+      newFirstName,
+      newLastName,
+      newUsername,
+      newPassword,
+      newCameraOne,
+      newCameraTwo,
+      newCameraThree,
+      newCameraFour,
+    } = req.body;
+    if (
+      !newHouse ||
+      !newHouseDesc ||
+      !newFirstName ||
+      !newLastName ||
+      !newUsername ||
+      !newPassword ||
+      !newCameraOne ||
+      !newCameraTwo ||
+      !newCameraThree ||
+      !newCameraFour
+    ) {
       return res.status(400).send("User details are required");
     }
     const newUser = new User({
@@ -538,6 +560,10 @@ router.post("/users/create", isAuthenticated, async (req, res) => {
       lastName: newLastName,
       username: newUsername,
       password: newPassword,
+      cameraOne: newCameraOne,
+      cameraTwo: newCameraTwo,
+      cameraThree: newCameraThree,
+      cameraFour: newCameraFour,
     });
     await newUser.save();
     return res.redirect("/users");
@@ -550,7 +576,18 @@ router.post("/users/create", isAuthenticated, async (req, res) => {
 router.post("/users/update/:userId", isAuthenticated, async (req, res) => {
   try {
     const userId = req.params.userId;
-    const { updatedHouse, updatedHouseDesc, updatedFirstName, updatedLastName, updatedUsername, updatedPassword } = req.body;
+    const {
+      updatedHouse,
+      updatedHouseDesc,
+      updatedFirstName,
+      updatedLastName,
+      updatedUsername,
+      updatedPassword,
+      updatedCameraOne,
+      updatedCameraTwo,
+      updatedCameraThree,
+      updatedCameraFour,
+    } = req.body;
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).send("User not found");
@@ -561,6 +598,10 @@ router.post("/users/update/:userId", isAuthenticated, async (req, res) => {
     user.lastName = updatedLastName;
     user.username = updatedUsername;
     user.password = updatedPassword;
+    user.cameraOne = updatedCameraOne;
+    user.cameraTwo = updatedCameraTwo;
+    user.cameraThree = updatedCameraThree;
+    user.cameraFour = updatedCameraFour;
     await user.save();
     return res.redirect("/users");
   } catch (error) {

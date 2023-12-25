@@ -10,6 +10,10 @@ exports.getAllUsers = async (req, res) => {
       lastName: user.lastName,
       houseDesc: user.houseDesc,
       username: user.username,
+      cameraOne: user.cameraOne,
+      cameraTwo: user.cameraTwo,
+      cameraThree: user.cameraThree,
+      cameraFour: user.cameraFour,
     }));
     return res.json(usersWithoutPassword);
   } catch (error) {
@@ -30,6 +34,11 @@ exports.getUserById = async (req, res) => {
       lastName: user.lastName,
       houseDesc: user.houseDesc,
       username: user.username,
+      password: user.password,
+      cameraOne: user.cameraOne,
+      cameraTwo: user.cameraTwo,
+      cameraThree: user.cameraThree,
+      cameraFour: user.cameraFour,
     });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
@@ -45,6 +54,10 @@ exports.createUser = async (req, res) => {
       houseDesc: req.body.houseDesc,
       username: req.body.username,
       password: req.body.password,
+      cameraOne: req.body.cameraOne,
+      cameraTwo: req.body.cameraTwo,
+      cameraThree: req.body.cameraThree,
+      cameraFour: req.body.cameraFour,
     });
     const savedUser = await newUser.save();
     const userWithoutPassword = {
@@ -54,6 +67,10 @@ exports.createUser = async (req, res) => {
       lastName: req.body.lastName,
       houseDesc: req.body.houseDesc,
       username: req.body.username,
+      cameraOne: req.body.cameraOne,
+      cameraTwo: req.body.cameraTwo,
+      cameraThree: req.body.cameraThree,
+      cameraFour: req.body.cameraFour,
     };
     return res.json(userWithoutPassword);
   } catch (error) {
@@ -72,6 +89,10 @@ exports.updateUser = async (req, res) => {
         houseDesc: req.body.houseDesc,
         username: req.body.username,
         password: req.body.password,
+        cameraOne: req.body.cameraOne,
+        cameraTwo: req.body.cameraTwo,
+        cameraThree: req.body.cameraThree,
+        cameraFour: req.body.cameraFour,
       },
       { new: true }
     );
@@ -85,6 +106,10 @@ exports.updateUser = async (req, res) => {
       house: updatedUser.house,
       houseDesc: updatedUser.houseDesc,
       username: updatedUser.username,
+      cameraOne: updatedUser.cameraOne,
+      cameraTwo: updatedUser.cameraTwo,
+      cameraThree: updatedUser.cameraThree,
+      cameraFour: updatedUser.cameraFour,
     };
     return res.json(userWithoutPassword);
   } catch (error) {
