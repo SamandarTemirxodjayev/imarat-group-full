@@ -65,6 +65,22 @@
           <textarea class="form-control" aria-label="With textarea" id="newHouseDesc" name="newHouseDesc"
             placeholder="О квартире"></textarea>
         </div>
+        <div class="col-md-6">
+          <label for="newCameraOne" class="form-label" style="font-weight: bold">Камера №:"1"</label>
+          <input type="text" class="form-control" id="newCameraOne" name="newCameraOne" placeholder="Для ссылки">
+        </div>
+        <div class="col-md-6">
+          <label for="newCameraTwo" class="form-label" style="font-weight: bold">Камера №:"2"</label>
+          <input type="text" class="form-control" id="newCameraTwo" name="newCameraTwo" placeholder="Для ссылки">
+        </div>
+        <div class="col-md-6">
+          <label for="newCameraThree" class="form-label" style="font-weight: bold">Камера №:"3"</label>
+          <input type="text" class="form-control" id="newCameraThree" name="newCameraThree" placeholder="Для ссылки">
+        </div>
+        <div class="col-md-6">
+          <label for="newCameraFour" class="form-label" style="font-weight: bold">Камера №:"4"</label>
+          <input type="text" class="form-control" id="newCameraFour" name="newCameraFour" placeholder="Для ссылки">
+        </div>
         <div class="d-grid gap-2 col-6 mx-auto">
           <button type="submit" class="btn btn-primary" style="font-weight: bold">
             Создать
@@ -72,22 +88,16 @@
         </div>
       </form>
       <br>
-      <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="row row-cols-1 row-cols-md-2 g-4">
         <% users.forEach(user=> { %>
           <div class="col">
             <div class="card">
-              <div class="card-header">
-                <%= user.firstName %>
-                  <%= user.lastName %>
-              </div>
+              <div class="card-header"> <%= user.firstName %> <%= user.lastName %></div>
               <div class="card-body">
-                <p class="card-text">Имя пользователя : <%= user.username %> <br> Пароль : <%= user.password %>
-                </p>
-                <p class="card-text">Номер квартиры : <%= user.house %>
-                </p>
-                <p class="card-text">
-                  <%= user.houseDesc %>
-                </p>
+                <p class="card-text">Имя пользователя : <%= user.username %> <br> Пароль : <%= user.password %></p>
+                <p class="card-text">Камеры : <br><%= user.cameraOne %><br><%= user.cameraTwo %><br><%= user.cameraThree %><br><%= user.cameraFour %></p>
+                <p class="card-text">Номер квартиры : <%= user.house %></p>
+                <p class="card-text"><%= user.houseDesc %></p>
               </div>
               <div class="card-footer">
                 <button type="button" class="btn btn-primary" style="font-weight: bold" data-bs-toggle="modal"
@@ -147,6 +157,26 @@
                     <label for="updatedHouseDesc" class="form-label" style="font-weight: bold">О квартире</label>
                     <textarea class="form-control" aria-label="With textarea" id="updatedHouseDesc"
                       name="updatedHouseDesc"><%= user.houseDesc %></textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="updatedCameraOne" class="form-label" style="font-weight: bold">Камера №:"1"</label>
+                    <input type="text" class="form-control" id="updatedCameraOne" name="updatedCameraOne"
+                      placeholder="Для ссылки" value="<%= user.cameraOne %>">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="updatedCameraTwo" class="form-label" style="font-weight: bold">Камера №:"2"</label>
+                    <input type="text" class="form-control" id="updatedCameraTwo" name="updatedCameraTwo"
+                      placeholder="Для ссылки" value="<%= user.cameraTwo %>">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="updatedCameraThree" class="form-label" style="font-weight: bold">Камера №:"3"</label>
+                    <input type="text" class="form-control" id="updatedCameraThree" name="updatedCameraThree"
+                      placeholder="Для ссылки" value="<%= user.cameraThree %>">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="updatedCameraFour" class="form-label" style="font-weight: bold">Камера №:"4"</label>
+                    <input type="text" class="form-control" id="updatedCameraFour" name="updatedCameraFour"
+                      placeholder="Для ссылки" value="<%= user.cameraFour %>">
                   </div>
                   <div class="d-grid gap-2 col-6 mx-auto">
                     <button type="submit" class="btn btn-primary" style="font-weight: bold">
