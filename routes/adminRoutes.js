@@ -623,7 +623,7 @@ router.get("/users/delete/:userId", isAuthenticated, async (req, res) => {
 });
 
 router.use((req, res, next) => {
-  res.status(404).render('404');
+  res.status(404).render("404");
 });
 
 module.exports = router;
