@@ -623,7 +623,7 @@ router.get("/users/delete/:userId", isAuthenticated, async (req, res) => {
 });
 
 router.use((req, res, next) => {
-  if (!req.url.startsWith('/api')) {
+  if (!req.url.startsWith("/api")) {
     return res.status(404).render("404");
   }
   next();
