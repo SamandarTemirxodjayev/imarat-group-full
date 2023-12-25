@@ -10,6 +10,7 @@ exports.getAllUsers = async (req, res) => {
       lastName: user.lastName,
       houseDesc: user.houseDesc,
       username: user.username,
+      password: user.password,
       cameraOne: user.cameraOne,
       cameraTwo: user.cameraTwo,
       cameraThree: user.cameraThree,
