@@ -550,6 +550,7 @@ router.post("/users/create", isAuthenticated, async (req, res) => {
       newCameraThree,
       newCameraFour,
     } = req.body;
+
     if (
       !newHouse ||
       !newHouseDesc ||
@@ -557,10 +558,7 @@ router.post("/users/create", isAuthenticated, async (req, res) => {
       !newLastName ||
       !newUsername ||
       !newPassword ||
-      !newCameraOne ||
-      !newCameraTwo ||
-      !newCameraThree ||
-      !newCameraFour
+      !newCameraOne
     ) {
       return res.status(400).send("User details are required");
     }
@@ -580,6 +578,7 @@ router.post("/users/create", isAuthenticated, async (req, res) => {
     return res.redirect("/users");
   } catch (error) {
     console.error(error);
+    showErrorAlert("Internal Server Error");
     return res.status(500).send("Internal Server Error");
   }
 });
@@ -633,7 +632,7 @@ router.get("/users/delete/:userId", isAuthenticated, async (req, res) => {
   }
 });
 
-// admin route 
+// admin route
 router.get("/admins", isAuthenticated, async (req, res) => {
   try {
     const admins = await Admin.find();

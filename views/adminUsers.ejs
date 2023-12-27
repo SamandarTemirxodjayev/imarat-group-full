@@ -33,17 +33,17 @@
       <form class="row g-3" action="/users/create" method="post">
         <div class="col-md-6">
           <label for="newFirstName" class="form-label" style="font-weight: bold">Имя</label>
-          <input type="text" class="form-control" id="newFirstName" name="newFirstName" placeholder="Имя клиента">
+          <input type="text" class="form-control" id="newFirstName" name="newFirstName" placeholder="Имя клиента" required>
         </div>
         <div class="col-md-6">
           <label for="newLastName" class="form-label" style="font-weight: bold">Фамилия</label>
-          <input type="text" class="form-control" id="newLastName" name="newLastName" placeholder="Фамилия клиента">
+          <input type="text" class="form-control" id="newLastName" name="newLastName" placeholder="Фамилия клиента" required>
         </div>
         <div class="col-md-6">
           <label for="newUsername" class="form-label" style="font-weight: bold">Имя пользователя</label>
           <div class="input-group">
             <input type="text" class="form-control" id="newUsername" name="newUsername"
-              placeholder="Серия паспорта клиента">
+              placeholder="Серия паспорта клиента" required>
             <button type="button" class="btn btn-secondary" onclick="generateUsername()">Генерировать имя
               пользователя</button>
           </div>
@@ -52,22 +52,22 @@
           <label for="newPassword" class="form-label" style="font-weight: bold">Пароль</label>
           <div class="input-group">
             <input type="password" class="form-control" id="newPassword" name="newPassword"
-              placeholder="Пароль клиента">
+              placeholder="Пароль клиента" required>
             <button type="button" class="btn btn-secondary" onclick="generatePassword()">Генерировать пароль</button>
           </div>
         </div>
         <div class="col-md-6">
           <label for="newHouse" class="form-label" style="font-weight: bold">Номер квартиры</label>
-          <input type="text" class="form-control" id="newHouse" name="newHouse" placeholder="Номер квартиры">
+          <input type="text" class="form-control" id="newHouse" name="newHouse" placeholder="Номер квартиры" required>
         </div>
         <div class="col-md-6">
           <label for="newHouseDesc" class="form-label" style="font-weight: bold">О квартире</label>
           <textarea class="form-control" aria-label="With textarea" id="newHouseDesc" name="newHouseDesc"
-            placeholder="О квартире"></textarea>
+            placeholder="О квартире" required></textarea>
         </div>
         <div class="col-md-6">
           <label for="newCameraOne" class="form-label" style="font-weight: bold">Камера №:"1"</label>
-          <input type="text" class="form-control" id="newCameraOne" name="newCameraOne" placeholder="Для ссылки">
+          <input type="text" class="form-control" id="newCameraOne" name="newCameraOne" placeholder="Для ссылки" required>
         </div>
         <div class="col-md-6">
           <label for="newCameraTwo" class="form-label" style="font-weight: bold">Камера №:"2"</label>
@@ -205,7 +205,7 @@
       document.getElementById("newPassword").value = password;
     }
     function generateUsername() {
-      const usernamePrefix = "u@s#e$r";
+      const usernamePrefix = "u)s&e%r$";
       const randomString = Math.random().toString(36).substring(2, 8);
       const generatedUsername = `${usernamePrefix}${randomString}`;
       document.getElementById("newUsername").value = generatedUsername;
