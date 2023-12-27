@@ -13,6 +13,7 @@ const vacancyRoutes = require("./routes/vacancyRoutes");
 const userRoutes = require("./routes/userRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const bodyParser = require("body-parser");
+const routes = require("./routes/routes");
 const path = require("path");
 const app = express();
 
@@ -47,6 +48,7 @@ mongoose
 
     // Routes
     app.use("/", adminRoutes);
+    app.use("/api/admins", routes);
     app.use("/api/auth", authRoutes);
     app.use("/api/blogs", blogRoutes);
     app.use("/api/categories", categoryRoutes);

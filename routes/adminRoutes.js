@@ -9,11 +9,20 @@ const Project = require("../models/Project");
 const Shorts = require("../models/Shorts");
 const User = require("../models/User");
 const uuid = require("uuid");
+const Admin = require("../models/Admin");
 
-const authenticateUser = (username, password) => {
-  const adminUsername = process.env.ADMIN_USERNAME;
-  const adminPassword = process.env.ADMIN_PASSWORD;
-  return username === adminUsername && password === adminPassword;
+const authenticateUser = async (username, password) => {
+  try {
+    const adminUser = await Admin.findOne({ username });
+    if (adminUser && adminUser.password === password) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Error authenticating admin user:", error);
+    return false;
+  }
 };
 
 const isAuthenticated = (req, res, next) => {
@@ -23,15 +32,20 @@ const isAuthenticated = (req, res, next) => {
   return res.redirect("/");
 };
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const { username, password } = req.body;
-  if (authenticateUser(username, password)) {
-    req.session.isAuthenticated = true;
-    return res.redirect("/dashboard");
-  } else {
-    return res.render("login", {
-      error: "Неправильное имя пользователя или пароль",
-    });
+  try {
+    if (await authenticateUser(username, password)) {
+      req.session.isAuthenticated = true;
+      return res.redirect("/dashboard");
+    } else {
+      return res.render("login", {
+        error: "Неправильное имя пользователя или пароль",
+      });
+    }
+  } catch (error) {
+    console.error("Error during login:", error);
+    return res.status(500).render("error", { error: "Internal Server Error" });
   }
 });
 
@@ -48,10 +62,7 @@ router.get("/logout", isAuthenticated, (req, res) => {
   });
 });
 
-router.get("/dashboard", (req, res) => {
-  if (!req.session.isAuthenticated) {
-    return res.redirect("/");
-  }
+router.get("/dashboard", isAuthenticated, (req, res) => {
   return res.render("adminDashboard");
 });
 
@@ -622,10 +633,58 @@ router.get("/users/delete/:userId", isAuthenticated, async (req, res) => {
   }
 });
 
+// admin route 
+router.get("/admins", isAuthenticated, async (req, res) => {
+  try {
+    const admins = await Admin.find();
+    return res.render("adminUser", { admins });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).render("error", { error: "Internal Server Error" });
+  }
+});
+
+router.get("/admins/:adminId", isAuthenticated, async (req, res) => {
+  try {
+    const adminId = req.params.adminId;
+    const admin = await Admin.findById(adminId);
+    if (!admin) {
+      return res.status(404).json({ error: "admin not found" });
+    }
+    return res.json(admin);
+  } catch (error) {
+    console.error("Error fetching user details:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/admins/update/:adminId", isAuthenticated, async (req, res) => {
+  try {
+    const adminId = req.params.adminId;
+    const { updatedUsername, updatedPassword } = req.body;
+    if (!updatedUsername || !updatedPassword) {
+      return res.status(400).send("All fields are required");
+    }
+    const admin = await Admin.findById(adminId);
+    if (!admin) {
+      return res.status(404).send("Admin not found");
+    }
+    admin.username = updatedUsername;
+    admin.password = updatedPassword;
+    await admin.save();
+    req.session.username = updatedUsername;
+    return res.redirect("/logout");
+  } catch (error) {
+    console.error(error);
+    return res.status(500).render("error", { error: "Internal Server Error" });
+  }
+});
+
 router.use((req, res, next) => {
   if (!req.url.startsWith("/api")) {
     return res.status(404).render("404");
   }
   next();
 });
+
 module.exports = router;
