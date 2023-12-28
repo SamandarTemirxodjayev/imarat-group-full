@@ -25,12 +25,17 @@ exports.getBlogById = async (req, res) => {
     if (!blog) {
       return res.status(404).json({ message: "Blog not found" });
     }
+    if (req.method === 'GET') {
+      blog.views += 1;
+      await blog.save();
+    }
     return res.json({
       _id: blog._id,
       title: blog.title,
       description: blog.description,
       photo: blog.photo,
       hashtag: blog.hashtag,
+      views: blog.views,
       createdAt: blog.createdAt,
       updatedAt: blog.updatedAt,
     });
@@ -38,6 +43,7 @@ exports.getBlogById = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
 
 exports.createBlog = async (req, res) => {
   try {

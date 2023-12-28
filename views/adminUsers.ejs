@@ -95,9 +95,9 @@
               <div class="card-header"> <%= user.firstName %> <%= user.lastName %></div>
               <div class="card-body">
                 <p class="card-text">Имя пользователя : <%= user.username %> <br> Пароль : <%= user.password %></p>
-                <p class="card-text">Камеры : <br><%= user.cameraOne %><br><%= user.cameraTwo %><br><%= user.cameraThree %><br><%= user.cameraFour %></p>
+                <p class="card-text" style="height: 115px; overflow-Y: scroll;">Камеры : <br><%= user.cameraOne %><br><%= user.cameraTwo %><br><%= user.cameraThree %><br><%= user.cameraFour %></p>
                 <p class="card-text">Номер квартиры : <%= user.house %></p>
-                <p class="card-text"><%= user.houseDesc %></p>
+                <p class="card-text" style="height: 200px; overflow-Y: scroll;"><%= user.houseDesc %></p>
               </div>
               <div class="card-footer">
                 <button type="button" class="btn btn-primary" style="font-weight: bold" data-bs-toggle="modal"
