@@ -9,7 +9,7 @@ router.get("/", userController.getAllUsers);
 router.get("/:id", userController.getUserById);
 
 // Protected routes (requires authentication)
-router.use(authMiddleware.authenticateToken);
+// router.use(authMiddleware.authenticateToken);
 
 router.post("/", userController.createUser);
 router.put("/:id", userController.updateUser);
