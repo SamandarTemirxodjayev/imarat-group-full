@@ -10,20 +10,12 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="#" style="font-weight: bold">Управление вакансиями</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/dashboard" style="color: red; font-weight: bold; font-size: 20px">Назад</a>
-          </li>
-        </ul>
-      </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-md">
+      <a class="navbar-brand" href="/dashboard">
+        <img src="https://index-eosin.vercel.app/Imarat%20Group.svg" width="100" height="50" class="d-inline-block align-text-top">
+      </a>
+      <a href="/dashboard" style="color: red; font-weight: bold; font-size: 20px; text-decoration: none; text-align: right;">Назад</a>
     </div>
   </nav>
 
@@ -125,18 +117,18 @@
                     <input type="text" class="form-control" id="updatedTitle" name="updatedTitle"
                       value="<%= vacancy.title %>" required />
                   </div>
-
+                  <div class="mb-3">
+                    <label for="updatedPrice" class="form-label" style="font-weight: bold">Цена:</label>
+                    <input type="text" class="form-control" id="updatedPrice" name="updatedPrice"
+                      value="<%= vacancy.price %>" required />
+                  </div>
+                  
                   <div class="mb-3">
                     <label for="updatedDescription" class="form-label" style="font-weight: bold">Описание:</label>
                     <textarea class="form-control" id="updatedDescription" name="updatedDescription" rows="3" required>
 <%= vacancy.description %></textarea>
                   </div>
 
-                  <div class="mb-3">
-                    <label for="updatedPrice" class="form-label" style="font-weight: bold">Цена:</label>
-                    <input type="text" class="form-control" id="updatedPrice" name="updatedPrice"
-                      value="<%= vacancy.price %>" required />
-                  </div>
                 </div>
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-primary" style="font-weight: bold">
