@@ -9,6 +9,7 @@ exports.getAllBlogs = async (req, res) => {
         title: blog.title,
         description: blog.description,
         photo: blog.photo,
+        views: blog.views,
         hashtag: blog.hashtag,
         createdAt: blog.createdAt,
         updatedAt: blog.updatedAt,
