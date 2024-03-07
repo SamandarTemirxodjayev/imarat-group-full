@@ -57,7 +57,7 @@ mongoose
     app.use("/api/users", userRoutes);
 
     // Start the server
-    const PORT = process.env.PORT || 3002;
+    const PORT = process.env.PORT || 7000;
     app.listen(PORT, () => {
       console.log(
         `Server is running on ${process.env.PROTOCOL}://${process.env.SERVER_IP}:${PORT}`
