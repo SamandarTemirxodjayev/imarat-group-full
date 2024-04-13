@@ -38,7 +38,7 @@ app.use(
 
 // MongoDB connection with environment variables
 mongoose
-  .connect(process.env.MONGODB_URI, {
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
